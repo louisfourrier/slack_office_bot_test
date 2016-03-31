@@ -19,19 +19,17 @@ class SlackCommand < ActiveRecord::Base
     command = params["command"]
     query = params["text"]
     response_url = params["response_url"]
-
     # Create from params
     slack_command = self.create(response_url: response_url, query: query, command: command, slack_code:params)
     slack_command.process_command
   end
-
 
   def process_command
     self.send_message_response("Nous sommmes en train de développer la gestion des commandes sur la plateforme Slack, nous reviendrons avec des réponses bientôt")
   end
 
   def send_message_response(message)
-    payload = {
+    pay_load = {
     "payload" => {
         text: message.to_s, # Text to be sent link into the string
         username: "SlackCommandService",
