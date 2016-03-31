@@ -34,12 +34,14 @@ class SlackCommand < ActiveRecord::Base
   end
 
   def send_message_response(message)
-    pay_load = {
-        text: message.to_s, # Text to be sent link into the string
+    json_params = {
+    "payload" => {
+        text: "super louis", # Text to be sent link into the string
         username: "SlackCommandService",
-        mrkdwn: true
+        mrkdwn: false
     }
-    self.send_payload_response(pay_load)
+  }
+    self.send_payload_response(json_params)
   end
 
   def send_payload_response(pay_load)
@@ -50,6 +52,7 @@ class SlackCommand < ActiveRecord::Base
     request = Net::HTTP::Post.new(uri.request_uri)
     request.set_form_data(pay_load)
     response = http.request(request)
+    puts response.to_s
   end
 
 
