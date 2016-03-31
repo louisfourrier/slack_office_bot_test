@@ -6,6 +6,9 @@ module Api
 
       def read_command
         SlackCommand.handle_command(params)
+        respond_to do |format|
+          format.all { render :nothing => true, :status => 200 }
+        end
       end
 
     end
