@@ -1,14 +1,14 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Slack Commands</h1>
 
-<table>
+<h1 class="page-header">Listing Slack Commands Received</h1>
+
+<table class="table">
   <thead>
     <tr>
-      <th>Response url</th>
+      <th>Date</th>
       <th>Command</th>
       <th>Query</th>
-      <th>Slack code</th>
+      <th>Response url</th>
       <th>Understand</th>
       <th>Assigned to</th>
       <th colspan="3"></th>
@@ -18,10 +18,10 @@
   <tbody>
     <% @slack_commands.each do |slack_command| %>
       <tr>
-        <td><%= slack_command.response_url %></td>
+        <td><%= l slack_command.created_at %></td>
         <td><%= slack_command.command %></td>
         <td><%= slack_command.query %></td>
-        <td><%= slack_command.slack_code %></td>
+        <td><%= slack_command.response_url %></td>
         <td><%= slack_command.understand %></td>
         <td><%= slack_command.assigned_to %></td>
         <td><%= link_to 'Show', slack_command %></td>
@@ -33,5 +33,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Slack command', new_slack_command_path %>

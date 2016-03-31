@@ -21,9 +21,10 @@ class SlackCommand < ActiveRecord::Base
     response_url = params["response_url"]
 
     # Create from params
-    slack_command = self.create(response_url: response_url, query: query, command: command)
+    slack_command = self.create(response_url: response_url, query: query, command: command, slack_code:params)
     slack_command.process_command
   end
+
 
   def process_command
     self.send_message_response("Nous sommmes en train de développer la gestion des commandes sur la plateforme Slack, nous reviendrons avec des réponses bientôt")
