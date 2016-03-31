@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Slack Teams</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Slack team</th>
+      <th>Team domain</th>
+      <th>Company name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @slack_teams.each do |slack_team| %>
+      <tr>
+        <td><%= slack_team.slack_team_id %></td>
+        <td><%= slack_team.team_domain %></td>
+        <td><%= slack_team.company_name %></td>
+        <td><%= link_to 'Show', slack_team %></td>
+        <td><%= link_to 'Edit', edit_slack_team_path(slack_team) %></td>
+        <td><%= link_to 'Destroy', slack_team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Slack team', new_slack_team_path %>

@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Slack channel:</strong>
+  <%= @slack_channel.slack_channel_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @slack_channel.name %>
+</p>
+
+<p>
+  <strong>Is general:</strong>
+  <%= @slack_channel.is_general %>
+</p>
+
+<p>
+  <strong>Is archived:</strong>
+  <%= @slack_channel.is_archived %>
+</p>
+
+<p>
+  <strong>Is channel:</strong>
+  <%= @slack_channel.is_channel %>
+</p>
+
+<p>
+  <strong>Created date:</strong>
+  <%= @slack_channel.created_date %>
+</p>
+
+<p>
+  <strong>Slack code:</strong>
+  <%= @slack_channel.slack_code %>
+</p>
+
+<p>
+  <strong>Last read:</strong>
+  <%= @slack_channel.last_read %>
+</p>
+
+<p>
+  <strong>Unread count:</strong>
+  <%= @slack_channel.unread_count %>
+</p>
+
+<p>
+  <strong>Slack team:</strong>
+  <%= @slack_channel.slack_team %>
+</p>
+
+<%= link_to 'Edit', edit_slack_channel_path(@slack_channel) %> |
+<%= link_to 'Back', slack_channels_path %>

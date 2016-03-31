@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  slack_team_id: 
+  slack_user_id: 
+  slack_channel_id: 
+  slack_code: MyText
+  raw_content: MyText
+  task_description: MyText
+  response_url: MyText
+  is_done: false
+  user_creator: MyString
+  user_assigned: MyString
+
+two:
+  slack_team_id: 
+  slack_user_id: 
+  slack_channel_id: 
+  slack_code: MyText
+  raw_content: MyText
+  task_description: MyText
+  response_url: MyText
+  is_done: false
+  user_creator: MyString
+  user_assigned: MyString

@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Slack Channels</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Slack channel</th>
+      <th>Name</th>
+      <th>Is general</th>
+      <th>Is archived</th>
+      <th>Is channel</th>
+      <th>Created date</th>
+      <th>Slack code</th>
+      <th>Last read</th>
+      <th>Unread count</th>
+      <th>Slack team</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @slack_channels.each do |slack_channel| %>
+      <tr>
+        <td><%= slack_channel.slack_channel_id %></td>
+        <td><%= slack_channel.name %></td>
+        <td><%= slack_channel.is_general %></td>
+        <td><%= slack_channel.is_archived %></td>
+        <td><%= slack_channel.is_channel %></td>
+        <td><%= slack_channel.created_date %></td>
+        <td><%= slack_channel.slack_code %></td>
+        <td><%= slack_channel.last_read %></td>
+        <td><%= slack_channel.unread_count %></td>
+        <td><%= slack_channel.slack_team %></td>
+        <td><%= link_to 'Show', slack_channel %></td>
+        <td><%= link_to 'Edit', edit_slack_channel_path(slack_channel) %></td>
+        <td><%= link_to 'Destroy', slack_channel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Slack channel', new_slack_channel_path %>

@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Slack Tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Slack team</th>
+      <th>Slack user</th>
+      <th>Slack channel</th>
+      <th>Slack code</th>
+      <th>Raw content</th>
+      <th>Task description</th>
+      <th>Response url</th>
+      <th>Is done</th>
+      <th>User creator</th>
+      <th>User assigned</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @slack_tasks.each do |slack_task| %>
+      <tr>
+        <td><%= slack_task.slack_team %></td>
+        <td><%= slack_task.slack_user %></td>
+        <td><%= slack_task.slack_channel %></td>
+        <td><%= slack_task.slack_code %></td>
+        <td><%= slack_task.raw_content %></td>
+        <td><%= slack_task.task_description %></td>
+        <td><%= slack_task.response_url %></td>
+        <td><%= slack_task.is_done %></td>
+        <td><%= slack_task.user_creator %></td>
+        <td><%= slack_task.user_assigned %></td>
+        <td><%= link_to 'Show', slack_task %></td>
+        <td><%= link_to 'Edit', edit_slack_task_path(slack_task) %></td>
+        <td><%= link_to 'Destroy', slack_task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Slack task', new_slack_task_path %>

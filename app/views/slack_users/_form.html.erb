@@ -1,0 +1,61 @@
+<%= form_for(@slack_user) do |f| %>
+  <% if @slack_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@slack_user.errors.count, "error") %> prohibited this slack_user from being saved:</h2>
+
+      <ul>
+      <% @slack_user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :slack_team_id %><br>
+    <%= f.text_field :slack_team_id %>
+  </div>
+  <div class="field">
+    <%= f.label :slack_user_id %><br>
+    <%= f.number_field :slack_user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :color %><br>
+    <%= f.text_field :color %>
+  </div>
+  <div class="field">
+    <%= f.label :deleted %><br>
+    <%= f.check_box :deleted %>
+  </div>
+  <div class="field">
+    <%= f.label :profile %><br>
+    <%= f.text_area :profile %>
+  </div>
+  <div class="field">
+    <%= f.label :is_admin %><br>
+    <%= f.check_box :is_admin %>
+  </div>
+  <div class="field">
+    <%= f.label :is_owner %><br>
+    <%= f.check_box :is_owner %>
+  </div>
+  <div class="field">
+    <%= f.label :is_primary_owner %><br>
+    <%= f.check_box :is_primary_owner %>
+  </div>
+  <div class="field">
+    <%= f.label :slack_code %><br>
+    <%= f.text_area :slack_code %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

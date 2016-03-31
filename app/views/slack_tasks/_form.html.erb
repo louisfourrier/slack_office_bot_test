@@ -1,0 +1,57 @@
+<%= form_for(@slack_task) do |f| %>
+  <% if @slack_task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@slack_task.errors.count, "error") %> prohibited this slack_task from being saved:</h2>
+
+      <ul>
+      <% @slack_task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :slack_team_id %><br>
+    <%= f.text_field :slack_team_id %>
+  </div>
+  <div class="field">
+    <%= f.label :slack_user_id %><br>
+    <%= f.text_field :slack_user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :slack_channel_id %><br>
+    <%= f.text_field :slack_channel_id %>
+  </div>
+  <div class="field">
+    <%= f.label :slack_code %><br>
+    <%= f.text_area :slack_code %>
+  </div>
+  <div class="field">
+    <%= f.label :raw_content %><br>
+    <%= f.text_area :raw_content %>
+  </div>
+  <div class="field">
+    <%= f.label :task_description %><br>
+    <%= f.text_area :task_description %>
+  </div>
+  <div class="field">
+    <%= f.label :response_url %><br>
+    <%= f.text_area :response_url %>
+  </div>
+  <div class="field">
+    <%= f.label :is_done %><br>
+    <%= f.check_box :is_done %>
+  </div>
+  <div class="field">
+    <%= f.label :user_creator %><br>
+    <%= f.text_field :user_creator %>
+  </div>
+  <div class="field">
+    <%= f.label :user_assigned %><br>
+    <%= f.text_field :user_assigned %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

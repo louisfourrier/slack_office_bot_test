@@ -1,0 +1,29 @@
+<%= form_for(@slack_team) do |f| %>
+  <% if @slack_team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@slack_team.errors.count, "error") %> prohibited this slack_team from being saved:</h2>
+
+      <ul>
+      <% @slack_team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :slack_team_id %><br>
+    <%= f.number_field :slack_team_id %>
+  </div>
+  <div class="field">
+    <%= f.label :team_domain %><br>
+    <%= f.text_field :team_domain %>
+  </div>
+  <div class="field">
+    <%= f.label :company_name %><br>
+    <%= f.text_field :company_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

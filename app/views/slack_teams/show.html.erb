@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Slack team:</strong>
+  <%= @slack_team.slack_team_id %>
+</p>
+
+<p>
+  <strong>Team domain:</strong>
+  <%= @slack_team.team_domain %>
+</p>
+
+<p>
+  <strong>Company name:</strong>
+  <%= @slack_team.company_name %>
+</p>
+
+<%= link_to 'Edit', edit_slack_team_path(@slack_team) %> |
+<%= link_to 'Back', slack_teams_path %>

@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Slack team:</strong>
+  <%= @slack_user.slack_team %>
+</p>
+
+<p>
+  <strong>Slack user:</strong>
+  <%= @slack_user.slack_user_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @slack_user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @slack_user.email %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @slack_user.color %>
+</p>
+
+<p>
+  <strong>Deleted:</strong>
+  <%= @slack_user.deleted %>
+</p>
+
+<p>
+  <strong>Profile:</strong>
+  <%= @slack_user.profile %>
+</p>
+
+<p>
+  <strong>Is admin:</strong>
+  <%= @slack_user.is_admin %>
+</p>
+
+<p>
+  <strong>Is owner:</strong>
+  <%= @slack_user.is_owner %>
+</p>
+
+<p>
+  <strong>Is primary owner:</strong>
+  <%= @slack_user.is_primary_owner %>
+</p>
+
+<p>
+  <strong>Slack code:</strong>
+  <%= @slack_user.slack_code %>
+</p>
+
+<%= link_to 'Edit', edit_slack_user_path(@slack_user) %> |
+<%= link_to 'Back', slack_users_path %>

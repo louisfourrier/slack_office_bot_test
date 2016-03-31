@@ -1,0 +1,1 @@
+json.extract! @slack_task, :id, :slack_team_id, :slack_user_id, :slack_channel_id, :slack_code, :raw_content, :task_description, :response_url, :is_done, :user_creator, :user_assigned, :created_at, :updated_at

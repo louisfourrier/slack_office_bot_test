@@ -1,0 +1,57 @@
+<%= form_for(@slack_channel) do |f| %>
+  <% if @slack_channel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@slack_channel.errors.count, "error") %> prohibited this slack_channel from being saved:</h2>
+
+      <ul>
+      <% @slack_channel.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :slack_channel_id %><br>
+    <%= f.text_field :slack_channel_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :is_general %><br>
+    <%= f.check_box :is_general %>
+  </div>
+  <div class="field">
+    <%= f.label :is_archived %><br>
+    <%= f.check_box :is_archived %>
+  </div>
+  <div class="field">
+    <%= f.label :is_channel %><br>
+    <%= f.check_box :is_channel %>
+  </div>
+  <div class="field">
+    <%= f.label :created_date %><br>
+    <%= f.datetime_select :created_date %>
+  </div>
+  <div class="field">
+    <%= f.label :slack_code %><br>
+    <%= f.text_area :slack_code %>
+  </div>
+  <div class="field">
+    <%= f.label :last_read %><br>
+    <%= f.text_area :last_read %>
+  </div>
+  <div class="field">
+    <%= f.label :unread_count %><br>
+    <%= f.number_field :unread_count %>
+  </div>
+  <div class="field">
+    <%= f.label :slack_team_id %><br>
+    <%= f.text_field :slack_team_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

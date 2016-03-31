@@ -1,0 +1,47 @@
+# == Schema Information
+#
+# Table name: slack_users
+#
+#  id               :integer          not null, primary key
+#  slack_team_id    :integer
+#  slack_user_id    :integer
+#  name             :string
+#  email            :string
+#  color            :string
+#  deleted          :boolean
+#  profile          :text
+#  is_admin         :boolean
+#  is_owner         :boolean
+#  is_primary_owner :boolean
+#  slack_code       :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  slack_team_id: 
+  slack_user_id: 1
+  name: MyString
+  email: MyString
+  color: MyString
+  deleted: false
+  profile: MyText
+  is_admin: false
+  is_owner: false
+  is_primary_owner: false
+  slack_code: MyText
+
+two:
+  slack_team_id: 
+  slack_user_id: 1
+  name: MyString
+  email: MyString
+  color: MyString
+  deleted: false
+  profile: MyText
+  is_admin: false
+  is_owner: false
+  is_primary_owner: false
+  slack_code: MyText

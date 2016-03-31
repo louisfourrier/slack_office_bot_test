@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: slack_user_channels
+#
+#  id               :integer          not null, primary key
+#  slack_user_id    :integer
+#  slack_channel_id :integer
+#  last_update      :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  slack_user_id: 
+  slack_channel_id: 
+  last_update: 2016-03-31 12:57:41
+
+two:
+  slack_user_id: 
+  slack_channel_id: 
+  last_update: 2016-03-31 12:57:41

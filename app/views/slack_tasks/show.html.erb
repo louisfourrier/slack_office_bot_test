@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Slack team:</strong>
+  <%= @slack_task.slack_team %>
+</p>
+
+<p>
+  <strong>Slack user:</strong>
+  <%= @slack_task.slack_user %>
+</p>
+
+<p>
+  <strong>Slack channel:</strong>
+  <%= @slack_task.slack_channel %>
+</p>
+
+<p>
+  <strong>Slack code:</strong>
+  <%= @slack_task.slack_code %>
+</p>
+
+<p>
+  <strong>Raw content:</strong>
+  <%= @slack_task.raw_content %>
+</p>
+
+<p>
+  <strong>Task description:</strong>
+  <%= @slack_task.task_description %>
+</p>
+
+<p>
+  <strong>Response url:</strong>
+  <%= @slack_task.response_url %>
+</p>
+
+<p>
+  <strong>Is done:</strong>
+  <%= @slack_task.is_done %>
+</p>
+
+<p>
+  <strong>User creator:</strong>
+  <%= @slack_task.user_creator %>
+</p>
+
+<p>
+  <strong>User assigned:</strong>
+  <%= @slack_task.user_assigned %>
+</p>
+
+<%= link_to 'Edit', edit_slack_task_path(@slack_task) %> |
+<%= link_to 'Back', slack_tasks_path %>
