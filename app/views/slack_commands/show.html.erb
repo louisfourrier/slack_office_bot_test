@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Response url:</strong>
+  <%= @slack_command.response_url %>
+</p>
+
+<p>
+  <strong>Command:</strong>
+  <%= @slack_command.command %>
+</p>
+
+<p>
+  <strong>Query:</strong>
+  <%= @slack_command.query %>
+</p>
+
+<p>
+  <strong>Slack code:</strong>
+  <%= @slack_command.slack_code %>
+</p>
+
+<p>
+  <strong>Understand:</strong>
+  <%= @slack_command.understand %>
+</p>
+
+<p>
+  <strong>Assigned to:</strong>
+  <%= @slack_command.assigned_to %>
+</p>
+
+<%= link_to 'Edit', edit_slack_command_path(@slack_command) %> |
+<%= link_to 'Back', slack_commands_path %>

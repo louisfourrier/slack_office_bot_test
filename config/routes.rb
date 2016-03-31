@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :slack_commands
   resources :slack_tasks
   resources :slack_channels
   resources :slack_users
@@ -15,6 +16,11 @@ Rails.application.routes.draw do
         resources :public_meteo do
           collection do
             post "get_weather"
+          end
+        end
+        resources :slack_command do
+          collection do
+            post "read_command"
           end
         end
     end

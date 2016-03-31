@@ -1,0 +1,69 @@
+RAILS_ENV=production rake assets:clean assets:precompile
+## SEE ALL REMOTES
+git remote -v
+
+## PUSHER SUR LE NOUVEAU GIT
+git push newgit
+
+## STAGING ##
+http://hd-newwebsite-staging.herokuapp.com/
+
+hd-newwebsite-staging
+
+git add --all
+git commit -m
+git push
+git push staging
+
+heroku run rake db:migrate --app hd-newwebsite-staging
+
+heroku run rails c --app hd-newwebsite-staging
+
+heroku logs --tail --app hd-newwebsite-staging
+
+git push staging yourbranch:master
+
+
+## PRODUCTION ##
+
+http://hd-newwebsite.herokuapp.com/
+
+hd-newwebsite
+
+git add --all
+git commit -m
+git push
+git push production master
+
+heroku run rake db:migrate --app hd-newwebsite
+
+heroku run rails c --app hd-newwebsite
+
+heroku logs --tail --app hd-newwebsite
+
+## DATABASE TRANSFER
+
+capture backup from database and delete last manual backup (only if you need a backup for this exact moment otherwise just use next step to get last backup)
+
+heroku pg:backups capture --app hd-newwebsite
+
+get last backup from production database (NOTE: this link becomes dead after every time you use it eg.by following below)
+
+heroku pg:backups public-url -a hd-newwebsite
+
+reset staging database
+
+heroku pg:reset HEROKU_POSTGRESQL_MAUVE_URL --confirm hd-newwebsite-staging
+
+restore database with backup link (value returned from step 2)
+
+heroku pg:backups restore "download-link" HEROKU_POSTGRESQL_MAUVE_URL -a hd-newwebsite-staging
+
+RESTORE LOCALLY
+
+# Download locally
+curl -o latest.dump "public url given in last step"
+
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U blogtracker -d happydininglouis latest.dump
+
+rake sitemap:refresh:no_ping

@@ -45,10 +45,6 @@ gem 'rails_12factor'
 #gem 'newrelic_rpm'
 gem 'unicorn'
 
-## OPTIMIZATION COMPRESSION
-gem 'rack-zippy'
-
-
 ## EXCEPTION
 gem 'exception_notification'
 
