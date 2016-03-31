@@ -25,21 +25,25 @@ class SlackCommand < ActiveRecord::Base
   end
 
   def process_command
-    self.send_message_response("Nous sommmes en train de développer la gestion des commandes sur la plateforme Slack, nous reviendrons avec des réponses bientôt")
+    self.send_message_response("Nous sommmes en train de développer la gestion des commandes sur la plateforme Slack, nous reviendrons avec des réponses bientôt...")
+
+  end
+
+  def new_process_command
+
   end
 
   def send_message_response(message)
     pay_load = {
-    "payload" => {
         text: message.to_s, # Text to be sent link into the string
         username: "SlackCommandService",
         mrkdwn: true
-      }
     }
     self.send_payload_response(pay_load)
   end
 
   def send_payload_response(pay_load)
+    puts "Send command answer"
     uri = URI.parse(self.response_url.to_s)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
