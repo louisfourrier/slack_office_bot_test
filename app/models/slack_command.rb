@@ -39,7 +39,7 @@ class SlackCommand < ActiveRecord::Base
         text: "super louis", # Text to be sent link into the string
         username: "SlackCommandService",
         mrkdwn: false
-    }
+    }.to_json
   }
     self.send_payload_response(json_params)
   end
