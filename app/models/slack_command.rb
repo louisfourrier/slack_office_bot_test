@@ -89,7 +89,7 @@ class SlackCommand < ActiveRecord::Base
   def create_association_models
     st = SlackTeam.find_by(slack_team_id: self.original_team_id.to_s)
     if st.nil?
-      st = SlackTeam.create(slack_team_id: self.original_team_id.to_s, team_dommain: self.original_team_domain.to_s)
+      st = SlackTeam.create(slack_team_id: self.original_team_id.to_s, team_domain: self.original_team_domain.to_s)
     end
 
     sc = st.slack_channels.find_by(slack_channel_id: self.original_channel_id.to_s)
