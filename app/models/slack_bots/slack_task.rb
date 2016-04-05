@@ -77,12 +77,12 @@ class SlackTask < ActiveRecord::Base
                {
                    title: "Channel",
                    value: self.slack_channel.name.to_s,
-                   short: false
+                   short: true
                },
                {
                    title: "Creator",
                    value: self.slack_user.name,
-                   short: false
+                   short: true
                }
              ],
           }
@@ -116,7 +116,7 @@ class SlackTask < ActiveRecord::Base
                {
                    title: "Show",
                    value: "Comme liste mais visible par tout le monde",
-                   short: false
+                   short: true
                }
              ],
           }

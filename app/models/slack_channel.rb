@@ -38,11 +38,9 @@ class SlackChannel < ActiveRecord::Base
         response_type: "in_channel",
         text: title, # Text to be sent link into the string
         username: "TaskBotLouis", # Change the username name
-        channel: self.slack_channel.slack_name, # For direct message or public channels
+        channel: self.slack_name, # For direct message or public channels
         attachments: [
           {
-              title: self.task_description.to_s,
-              title_link: "http://www.mensquare.com/avionsdechasse/avions/?type=avion&id=100762",
               fields: self.generate_tasks_json_array
           }
       ]
