@@ -10,11 +10,12 @@
 #  raw_content      :text
 #  task_description :text
 #  response_url     :text
-#  is_done          :boolean
+#  is_done          :boolean          default(FALSE)
 #  user_creator     :string
 #  user_assigned    :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  channel_order    :integer
 #
 
 module SlackTasksHelper

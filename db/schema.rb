@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405094521) do
+ActiveRecord::Schema.define(version: 20160405135643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,11 +69,12 @@ ActiveRecord::Schema.define(version: 20160405094521) do
     t.text     "raw_content"
     t.text     "task_description"
     t.text     "response_url"
-    t.boolean  "is_done"
+    t.boolean  "is_done",          default: false
     t.string   "user_creator"
     t.string   "user_assigned"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "channel_order"
   end
 
   add_index "slack_tasks", ["slack_channel_id"], name: "index_slack_tasks_on_slack_channel_id", using: :btree

@@ -55,9 +55,18 @@ class SlackCommand < ActiveRecord::Base
     end
   end
 
-  def first_key_word
-    words = self.query.to_s.split(' ')
-    return words.first
+  def query_array
+    return self.query.to_s.split(' ')
+  end
+
+  def first_keyword
+    return self.query_array.first
+  end
+
+  def arguments_array
+    words = self.query_array
+    words.shift
+    return words
   end
 
   # Create a command from the params of Slack

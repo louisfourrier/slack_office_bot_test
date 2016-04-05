@@ -10,11 +10,12 @@
 #  raw_content      :text
 #  task_description :text
 #  response_url     :text
-#  is_done          :boolean
+#  is_done          :boolean          default(FALSE)
 #  user_creator     :string
 #  user_assigned    :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  channel_order    :integer
 #
 
 class SlackTask < ActiveRecord::Base
@@ -23,21 +24,33 @@ class SlackTask < ActiveRecord::Base
   belongs_to :slack_channel
 
   after_create :warn_slack_creation
+  after_create :assign_channel_order
+
+  scope :done, -> { where(is_done: true) }
+  scope :not_done, -> { where(is_done: false) }
 
   def self.command_managed
     return ["todobot", "task"]
   end
 
   def self.keywords
-    ['list', 'help', 'list done']
+    ['list', 'help', 'show']
   end
 
   def self.handle_slack_command(command)
-    if command.first_key_word == "list"
+    if command.first_keyword == "list"
       channel = command.slack_channel
       payload = channel.list_tasks_payload
       SlackCommunication.send_payload(command.response_url.to_s, payload)
-    elsif command.first_key_word == "help"
+    elsif command.first_keyword == "show"
+      channel = command.slack_channel
+      payload = channel.list_tasks_payload(true)
+      SlackCommunication.send_payload(command.response_url.to_s, payload)
+    elsif command.first_keyword == "done"
+      channel = command.slack_channel
+      payload = channel.mark_as_done(command)
+      SlackCommunication.send_payload(command.response_url.to_s, payload)
+    elsif command.first_keyword == "help"
       payload = self.slack_help(command)
       SlackCommunication.send_payload(command.response_url.to_s, payload)
     else
@@ -54,7 +67,30 @@ class SlackTask < ActiveRecord::Base
     stask.is_done = false
     stask.task_description = command.query.to_s
     stask.response_url = command.response_url.to_s
+    stask.user_creator = command.slack_user.name
     stask.save
+  end
+
+  # Mark a task as done
+  def task_done
+    self.update(:is_done => true)
+  end
+
+  def slack_color
+    if self.is_done
+      return "good"
+    else
+      return "danger"
+  end
+
+  # Return the task in the json format
+  def to_slack_json
+    json = {
+        title: "Task #{self.channel_order}",
+        text: self.task_description.to_s,
+        color: self.slack_color,
+        author_name: self.user_creator
+    }
   end
 
   def warn_slack_creation
@@ -106,17 +142,17 @@ class SlackTask < ActiveRecord::Base
                {
                    title: "List",
                    value: "Liste toutes les taches de la channel",
-                   short: true
+                   short: false
                },
                {
                    title: "Help",
                    value: "Aide sur les commandes possibles",
-                   short: true
+                   short: false
                },
                {
                    title: "Show",
                    value: "Comme liste mais visible par tout le monde",
-                   short: true
+                   short: false
                }
              ],
           }
@@ -124,8 +160,15 @@ class SlackTask < ActiveRecord::Base
         }.to_json
     }
     return payload
+  end
 
 
+
+  # Assign the order of the task  in the channel
+  def assign_channel_order
+    nb_tasks = self.slack_channel.slack_tasks.count
+    channel_order = nb_tasks + 1
+    self.update_column(:channel_order, channel_order)
   end
 
 
