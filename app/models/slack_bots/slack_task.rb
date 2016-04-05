@@ -81,6 +81,7 @@ class SlackTask < ActiveRecord::Base
       return "good"
     else
       return "danger"
+    end
   end
 
   # Return the task in the json format
