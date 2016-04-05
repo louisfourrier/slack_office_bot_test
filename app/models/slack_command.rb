@@ -33,6 +33,8 @@ class SlackCommand < ActiveRecord::Base
 
   after_create :create_association_models
 
+  # First Router of the command center.
+  # Save the command and process it
   def self.handle_command(params)
     slack_command = self.create_from_params(params)
     if slack_command.valid?
@@ -44,7 +46,7 @@ class SlackCommand < ActiveRecord::Base
     end
   end
 
-  # Dispatch Task to the correct Model
+  # Dispatch Task to the correct Model or send a message of no understanding
   def process_command
     if command == "/todobot"
       SlackTask.handle_slack_command(self)
@@ -53,6 +55,7 @@ class SlackCommand < ActiveRecord::Base
     end
   end
 
+  # Create a command from the params of Slack
   def self.create_from_params(pr)
     # Create from params
     slack_command = self.build(response_url: pr["response_url"], query: pr["text"], command: pr["command"], slack_code:pr, original_token: pr["token"], original_team_id: pr["team_id"], original_team_domain: pr["team_domain"], original_channel_id: pr["channel_id"],
@@ -71,7 +74,6 @@ class SlackCommand < ActiveRecord::Base
     self.send_payload_response(json_params)
   end
 
-
   def send_payload_response(pay_load)
     puts "Send command answer"
     uri = URI.parse(self.response_url.to_s)
@@ -89,19 +91,22 @@ class SlackCommand < ActiveRecord::Base
     if st.nil?
       st = SlackTeam.create(slack_team_id: self.original_team_id.to_s, team_dommain: self.original_team_domain.to_s)
     end
-    sc = st.slack_channels.find_by(:slack_channel_id: self.original_channel_id.to_s)
+
+    sc = st.slack_channels.find_by(slack_channel_id: self.original_channel_id.to_s)
     if sc.nil?
-      sc = st.slack_channels.create(:slack_channel_id: self.original_channel_id.to_s, name: self.original_channel_name.to_s)
+      sc = st.slack_channels.create(slack_channel_id: self.original_channel_id.to_s, name: self.original_channel_name.to_s)
     end
 
-    su = st.slack_users.find_by(:slack_user_id: self.original_user_id.to_s)
+    su = st.slack_users.find_by(slack_user_id: self.original_user_id.to_s)
     if su.nil?
-      su = st.slack_users.create(:slack_user_id: self.original_user_id.to_s, name: self.original_user_name.to_s)
-    end
-      self.update_columns(slack_team_id: st.id, slack_user_id: su.id, slack_channel_id: sc.id )
+      su = st.slack_users.create(slack_user_id: self.original_user_id.to_s, name: self.original_user_name.to_s)
     end
 
+    self.update_columns(slack_team_id: st.id, slack_user_id: su.id, slack_channel_id: sc.id )
   end
+
+
+
 
 
 end
