@@ -17,7 +17,7 @@
 #  updated_at       :datetime         not null
 #
 
-class SlackTask < SlackMainBot
+class SlackTask < ActiveRecord::Base
   belongs_to :slack_team
   belongs_to :slack_user
   belongs_to :slack_channel
