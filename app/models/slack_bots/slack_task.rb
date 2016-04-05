@@ -16,6 +16,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  channel_order    :integer
+#  done_date        :datetime
 #
 
 class SlackTask < ActiveRecord::Base
@@ -73,7 +74,7 @@ class SlackTask < ActiveRecord::Base
 
   # Mark a task as done
   def task_done
-    self.update(:is_done => true)
+    self.update(:is_done => true, :done_date => Time.zone.now)
   end
 
   def slack_color
@@ -90,7 +91,24 @@ class SlackTask < ActiveRecord::Base
         title: "Task #{self.channel_order}",
         text: self.task_description.to_s,
         color: self.slack_color,
-        author_name: self.user_creator
+        fields: [
+         {
+             title: "Creator",
+             value: self.slack_user.name,
+             short: true
+         },
+         {
+             title: "Creation Date",
+             value: self.created_at.to_s,
+             short: true
+         },
+         {
+             title: "Done ?",
+             value: self.is_done.to_s,
+             short: true
+         }
+
+       ]
     }
   end
 
@@ -147,17 +165,22 @@ class SlackTask < ActiveRecord::Base
               fields: [
                {
                    title: "List",
-                   value: "Liste toutes les taches de la channel",
+                   value: "/todobot list (Liste toutes les taches de la channel)",
                    short: false
                },
                {
                    title: "Help",
-                   value: "Aide sur les commandes possibles",
+                   value: "/todobot help (Aide sur les commandes possibles)",
+                   short: false
+               },
+               {
+                   title: "Done",
+                   value: "/todobot done 2 4 6  (marque comme done les tasks 2 4 6)",
                    short: false
                },
                {
                    title: "Show",
-                   value: "Comme liste mais visible par tout le monde",
+                   value: "/todobot show (Comme liste mais visible par tout le monde)",
                    short: false
                }
              ],
