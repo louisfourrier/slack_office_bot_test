@@ -40,11 +40,7 @@ class SlackChannel < ActiveRecord::Base
         text: title, # Text to be sent link into the string
         username: "TaskBotLouis", # Change the username name
         channel: self.slack_name, # For direct message or public channels
-        attachments: [
-          {
-              fields: self.generate_tasks_json_array
-          }
-      ]
+        attachments: self.generate_tasks_json_array
         }.to_json
     }
     # See by everybody in the channel
@@ -55,15 +51,10 @@ class SlackChannel < ActiveRecord::Base
           text: title, # Text to be sent link into the string
           username: "TaskBotLouis", # Change the username name
           channel: self.slack_name, # For direct message or public channels
-          attachments: [
-            {
-                fields: self.generate_tasks_json_array
-            }
-        ]
+          attachments: self.generate_tasks_json_array
           }.to_json
       }
     end
-
     return payload
   end
 

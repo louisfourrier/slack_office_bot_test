@@ -109,17 +109,22 @@ class SlackTask < ActiveRecord::Base
                {
                    title: "Team",
                    value: self.slack_team.name,
-                   short: true
+                   short: false
                },
                {
                    title: "Channel",
                    value: self.slack_channel.name.to_s,
-                   short: true
+                   short: false
                },
                {
                    title: "Creator",
                    value: self.slack_user.name,
-                   short: true
+                   short: false
+               },
+               {
+                   title: "Done ?",
+                   value: self.is_done.to_s,
+                   short: false
                }
              ],
           }
