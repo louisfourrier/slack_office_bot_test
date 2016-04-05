@@ -33,11 +33,11 @@ class SlackTask < ActiveRecord::Base
   end
 
   def self.handle_slack_command(command)
-    if command.command.to_s == "list"
+    if command.first_key_word == "list"
       channel = command.slack_channel
       payload = channel.list_tasks_payload
       SlackCommunication.send_payload(command.response_url.to_s, payload)
-    elsif command.command.to_s == "help"
+    elsif command.first_key_word == "help"
       payload = self.slack_help(command)
       SlackCommunication.send_payload(command.response_url.to_s, payload)
     else
@@ -50,9 +50,9 @@ class SlackTask < ActiveRecord::Base
     stask.slack_team = command.slack_team
     stask.slack_user = command.slack_user
     stask.slack_channel = command.slack_channel
-    stask.raw_content = command.command
+    stask.raw_content = command.query
     stask.is_done = false
-    stask.task_description = command.command.to_s
+    stask.task_description = command.query.to_s
     stask.response_url = command.response_url.to_s
     stask.save
   end
@@ -77,7 +77,7 @@ class SlackTask < ActiveRecord::Base
                {
                    title: "Channel",
                    value: self.slack_channel.name.to_s,
-                   short: true
+                   short: false
                },
                {
                    title: "Creator",
