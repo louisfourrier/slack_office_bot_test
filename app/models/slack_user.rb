@@ -4,7 +4,7 @@
 #
 #  id               :integer          not null, primary key
 #  slack_team_id    :integer
-#  slack_user_id    :integer
+#  slack_user_id    :string
 #  name             :string
 #  email            :string
 #  color            :string
@@ -21,5 +21,13 @@
 class SlackUser < ActiveRecord::Base
   has_many :slack_user_channels
   has_many :slack_channels, through: :slack_user_channels
+  has_many :slack_commands
+  has_many :slack_tasks
+
   belongs_to :slack_team
+
+  validates :name, :slack_user_id, presence: true
+  validates :name, :slack_user_id, uniqueness: true
+
+
 end

@@ -15,6 +15,51 @@ class SlackCommunication
     response = http.request(request)
   end
 
+  def self.send_payload(url, payload)
+    uri = URI.parse(url.to_s)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(uri.request_uri)
+    request.set_form_data(payload)
+    response = http.request(request)
+  end
+
+  def self.test_send_payload(url)
+    payload = {
+    "payload" => {
+        response_type: "ephemeral",
+        text: "Création d'une nouvelle Tache", # Text to be sent link into the string
+        username: "TaskBotLouis", # Change the username name
+        channel: "#general", # For direct message or public channels
+        attachments: [
+          {
+              title: "Super title",
+              title_link: "http://www.mensquare.com/avionsdechasse/avions/?type=avion&id=100762",
+              fields: [
+               {
+                   title: "Team",
+                   value: "Affreux",
+                   short: true
+               },
+               {
+                   title: "Channel",
+                   value: "Louis",
+                   short: true
+               },
+               {
+                   title: "Creator",
+                   value: "Louis",
+                   short: false
+               }
+             ],
+          }
+      ]
+        }.to_json
+    }
+
+    self.send_payload(url, payload)
+  end
+
   # Send a message on a particular Channel with an API code for the URL of destination
   def self.webhook_send_test
     string = "Alerte sur nos serveurs. Test des Webhooks, alertes serveur vers Slack pour toutes les notifications"

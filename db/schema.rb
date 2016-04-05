@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331145232) do
+ActiveRecord::Schema.define(version: 20160405094521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,9 +41,25 @@ ActiveRecord::Schema.define(version: 20160331145232) do
     t.text     "slack_code"
     t.boolean  "understand"
     t.string   "assigned_to"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "original_token"
+    t.string   "original_team_id"
+    t.string   "original_team_domain"
+    t.string   "original_channel_id"
+    t.string   "original_channel_name"
+    t.string   "original_user_id"
+    t.string   "original_user_name"
+    t.string   "original_command"
+    t.string   "original_text"
+    t.integer  "slack_team_id"
+    t.integer  "slack_user_id"
+    t.integer  "slack_channel_id"
   end
+
+  add_index "slack_commands", ["slack_channel_id"], name: "index_slack_commands_on_slack_channel_id", using: :btree
+  add_index "slack_commands", ["slack_team_id"], name: "index_slack_commands_on_slack_team_id", using: :btree
+  add_index "slack_commands", ["slack_user_id"], name: "index_slack_commands_on_slack_user_id", using: :btree
 
   create_table "slack_tasks", force: :cascade do |t|
     t.integer  "slack_team_id"
@@ -65,7 +81,7 @@ ActiveRecord::Schema.define(version: 20160331145232) do
   add_index "slack_tasks", ["slack_user_id"], name: "index_slack_tasks_on_slack_user_id", using: :btree
 
   create_table "slack_teams", force: :cascade do |t|
-    t.integer  "slack_team_id"
+    t.string   "slack_team_id"
     t.string   "team_domain"
     t.string   "company_name"
     t.datetime "created_at",    null: false
@@ -85,7 +101,7 @@ ActiveRecord::Schema.define(version: 20160331145232) do
 
   create_table "slack_users", force: :cascade do |t|
     t.integer  "slack_team_id"
-    t.integer  "slack_user_id"
+    t.string   "slack_user_id"
     t.string   "name"
     t.string   "email"
     t.string   "color"

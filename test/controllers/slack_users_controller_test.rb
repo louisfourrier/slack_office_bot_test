@@ -4,7 +4,7 @@
 #
 #  id               :integer          not null, primary key
 #  slack_team_id    :integer
-#  slack_user_id    :integer
+#  slack_user_id    :string
 #  name             :string
 #  email            :string
 #  color            :string

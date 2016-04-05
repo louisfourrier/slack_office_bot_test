@@ -3,7 +3,7 @@
 # Table name: slack_teams
 #
 #  id            :integer          not null, primary key
-#  slack_team_id :integer
+#  slack_team_id :string
 #  team_domain   :string
 #  company_name  :string
 #  created_at    :datetime         not null

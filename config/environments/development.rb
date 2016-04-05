@@ -43,7 +43,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
 
-  config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**/}')]
+  #config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**/}')]
 
   config.middleware.use ExceptionNotification::Rack,
   :email => {

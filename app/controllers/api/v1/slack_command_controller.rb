@@ -5,9 +5,13 @@ module Api
       respond_to :json
 
       def read_command
-        SlackCommand.handle_command(params)
+        result  = SlackCommand.handle_command(params)
         respond_to do |format|
-          format.all { render :nothing => true, :status => 200 }
+          if result
+            format.json { render :text => "Got it ! Command treated", :status => 200 }
+          else
+            format.json { render :text => "Error in the process", :status => 200 }
+          end
         end
       end
 
