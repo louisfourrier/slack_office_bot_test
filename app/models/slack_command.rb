@@ -58,7 +58,7 @@ class SlackCommand < ActiveRecord::Base
   # Create a command from the params of Slack
   def self.create_from_params(pr)
     # Create from params
-    slack_command = self.build(response_url: pr["response_url"], query: pr["text"], command: pr["command"], slack_code:pr, original_token: pr["token"], original_team_id: pr["team_id"], original_team_domain: pr["team_domain"], original_channel_id: pr["channel_id"],
+    slack_command = SlackCommand.new(response_url: pr["response_url"], query: pr["text"], command: pr["command"], slack_code:pr, original_token: pr["token"], original_team_id: pr["team_id"], original_team_domain: pr["team_domain"], original_channel_id: pr["channel_id"],
     original_channel_name: pr["channel_name"],  original_user_id: pr["user_id"], original_user_name: pr["user_name"], original_command: pr["command"], original_text: pr["text"])
     return slack_command
   end
