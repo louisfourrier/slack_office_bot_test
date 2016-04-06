@@ -19,6 +19,8 @@
 #
 
 class SlackUser < ActiveRecord::Base
+  include CommonMethod
+
   has_many :slack_user_channels
   has_many :slack_channels, through: :slack_user_channels
   has_many :slack_commands
@@ -26,8 +28,10 @@ class SlackUser < ActiveRecord::Base
 
   belongs_to :slack_team
 
-  validates :name, :slack_user_id, presence: true
-  validates :name, :slack_user_id, uniqueness: true
+  validates :name,  presence: true
+  validates :name, uniqueness: true
+  validates :name, :uniqueness => {:scope => :slack_team_id}
+  validates :slack_user_id, :uniqueness: true, :allow_blank => true
 
 
 end

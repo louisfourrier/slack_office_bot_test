@@ -27,6 +27,8 @@
 
 # Classs that handle all the Slack Commands and dispatch it in all the relevant classes
 class SlackCommand < ActiveRecord::Base
+  include CommonMethod
+
   belongs_to :slack_team
   belongs_to :slack_user
   belongs_to :slack_channel
@@ -67,6 +69,18 @@ class SlackCommand < ActiveRecord::Base
     words = self.query_array
     words.shift
     return words
+  end
+
+  # Return all the assignements @louis in the arguments array
+  def assignment_arguments
+    arguments = self.arguments_array
+    assigments = []
+    arguments.each do |ar|
+      if ar.to_s.first == "@"
+        assigments << ar
+      end
+    end
+    return assigments
   end
 
   # Create a command from the params of Slack

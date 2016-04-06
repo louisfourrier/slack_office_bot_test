@@ -11,6 +11,8 @@
 #
 
 class SlackTeam < ActiveRecord::Base
+  include CommonMethod
+  
   has_many :slack_users
   has_many :slack_channels
   has_many :slack_commands

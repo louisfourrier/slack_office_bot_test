@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: slack_task_assignements
+#
+#  id            :integer          not null, primary key
+#  slack_task_id :integer
+#  slack_user_id :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  slack_task_id: 
+  slack_user_id: 
+
+two:
+  slack_task_id: 
+  slack_user_id: 

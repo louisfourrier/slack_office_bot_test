@@ -23,7 +23,7 @@ class SlackChannelsController < ApplicationController
   # GET /slack_channels
   # GET /slack_channels.json
   def index
-    @slack_channels = SlackChannel.all
+    @slack_channels = SlackChannel.search_and_paginate(params)
   end
 
   # GET /slack_channels/1

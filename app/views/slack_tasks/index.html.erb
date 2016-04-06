@@ -1,15 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Slack Tasks</h1>
+<h1 class="page-header">Listing Slack Tasks</h1>
 
-<table>
+
+<div class="row">
+		<div class="text-center pagination-hd">
+			<%= will_paginate @slack_tasks, renderer: BootstrapPagination::Rails  %>
+		</div>
+</div>
+
+<table class="table">
   <thead>
     <tr>
       <th>Slack team</th>
       <th>Slack user</th>
       <th>Slack channel</th>
-      <th>Slack code</th>
-      <th>Raw content</th>
       <th>Task description</th>
       <th>Response url</th>
       <th>Is done</th>
@@ -25,8 +30,6 @@
         <td><%= slack_task.slack_team %></td>
         <td><%= slack_task.slack_user %></td>
         <td><%= slack_task.slack_channel %></td>
-        <td><%= slack_task.slack_code %></td>
-        <td><%= slack_task.raw_content %></td>
         <td><%= slack_task.task_description %></td>
         <td><%= slack_task.response_url %></td>
         <td><%= slack_task.is_done %></td>
@@ -39,6 +42,12 @@
     <% end %>
   </tbody>
 </table>
+
+<div class="row">
+		<div class="text-center pagination-hd">
+			<%= will_paginate @slack_tasks, renderer: BootstrapPagination::Rails  %>
+		</div>
+</div>
 
 <br>
 

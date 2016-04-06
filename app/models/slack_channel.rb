@@ -18,6 +18,8 @@
 #
 
 class SlackChannel < ActiveRecord::Base
+  include CommonMethod
+  
   belongs_to :slack_team
   has_many :slack_commands
   has_many :slack_tasks
@@ -29,6 +31,7 @@ class SlackChannel < ActiveRecord::Base
   def slack_name
     return "#" + self.name.to_s
   end
+
 
   # Return Payload for all the tasks in the Channel
   def list_tasks_payload(show_mode = false)

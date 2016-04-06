@@ -1,8 +1,14 @@
-<p id="notice"><%= notice %></p>
+<h1 class="page-header">Listing Slack Channels</h1>
 
-<h1>Listing Slack Channels</h1>
 
-<table>
+<div class="row">
+		<div class="text-center pagination-hd">
+			<%= will_paginate @slack_channels, renderer: BootstrapPagination::Rails  %>
+		</div>
+</div>
+
+
+<table class="table">
   <thead>
     <tr>
       <th>Slack channel</th>
@@ -40,6 +46,10 @@
   </tbody>
 </table>
 
-<br>
+<div class="row">
+		<div class="text-center pagination-hd">
+			<%= will_paginate @slack_channels, renderer: BootstrapPagination::Rails  %>
+		</div>
+</div>
 
-<%= link_to 'New Slack channel', new_slack_channel_path %>
+<br>

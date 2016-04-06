@@ -16,7 +16,7 @@ class SlackTeamsController < ApplicationController
   # GET /slack_teams
   # GET /slack_teams.json
   def index
-    @slack_teams = SlackTeam.all
+    @slack_teams = SlackTeam.search_and_paginate(params)
   end
 
   # GET /slack_teams/1

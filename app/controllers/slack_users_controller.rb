@@ -24,7 +24,7 @@ class SlackUsersController < ApplicationController
   # GET /slack_users
   # GET /slack_users.json
   def index
-    @slack_users = SlackUser.all
+    @slack_users = SlackUser.search_and_paginate(params)
   end
 
   # GET /slack_users/1

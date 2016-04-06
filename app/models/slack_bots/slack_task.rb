@@ -2,30 +2,36 @@
 #
 # Table name: slack_tasks
 #
-#  id               :integer          not null, primary key
-#  slack_team_id    :integer
-#  slack_user_id    :integer
-#  slack_channel_id :integer
-#  slack_code       :text
-#  raw_content      :text
-#  task_description :text
-#  response_url     :text
-#  is_done          :boolean          default(FALSE)
-#  user_creator     :string
-#  user_assigned    :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  channel_order    :integer
-#  done_date        :datetime
+#  id                     :integer          not null, primary key
+#  slack_team_id          :integer
+#  slack_user_id          :integer
+#  slack_channel_id       :integer
+#  slack_code             :text
+#  raw_content            :text
+#  task_description       :text
+#  response_url           :text
+#  is_done                :boolean          default(FALSE)
+#  user_creator           :string
+#  user_assigned          :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  channel_order          :integer
+#  done_date              :datetime
+#  slack_user_assigned_id :integer
 #
 
 class SlackTask < ActiveRecord::Base
+  include CommonMethod
+
   belongs_to :slack_team
   belongs_to :slack_user
   belongs_to :slack_channel
 
   after_create :warn_slack_creation
   after_create :assign_channel_order
+
+  has_many :slack_task_assignements
+  has_many :slack_user_assigned, through: :slack_task_assignements, source: :slack_user
 
   scope :done, -> { where(is_done: true) }
   scope :not_done, -> { where(is_done: false) }
@@ -69,7 +75,24 @@ class SlackTask < ActiveRecord::Base
     stask.task_description = command.query.to_s
     stask.response_url = command.response_url.to_s
     stask.user_creator = command.slack_user.name
-    stask.save
+    if stask.save
+      stask.assign_users(command)
+    end
+  end
+
+  # Create or assign users in a task
+  def assign_users(command)
+    assigns = []
+    if !command.assignment_arguments.empty?
+      users = command.assignment_arguments
+        users.each do |uname|
+          u = command.slack_team.slack_users.find_by(name: uname.to_s.gsub('@', ''))
+          if u.nil?
+             u = commmand.slack_team.slack_users.create(name: uname.to_s.gsub('@', ''))
+          end
+          self.slack_user_assigned << u
+        end
+    end
   end
 
   # Mark a task as done

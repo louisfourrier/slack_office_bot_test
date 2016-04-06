@@ -31,7 +31,7 @@ class SlackCommandsController < ApplicationController
   # GET /slack_commands
   # GET /slack_commands.json
   def index
-    @slack_commands = SlackCommand.all
+    @slack_commands = SlackCommand.search_and_paginate(params)
   end
 
   # GET /slack_commands/1
