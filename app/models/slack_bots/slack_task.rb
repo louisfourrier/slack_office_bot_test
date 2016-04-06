@@ -71,7 +71,6 @@ class SlackTask < ActiveRecord::Base
     stask.slack_user = command.slack_user
     stask.slack_channel = command.slack_channel
     stask.raw_content = command.query
-    stask.is_done = false
     stask.task_description = command.query.to_s
     stask.response_url = command.response_url.to_s
     stask.user_creator = command.slack_user.name
@@ -100,6 +99,11 @@ class SlackTask < ActiveRecord::Base
     self.update(:is_done => true, :done_date => Time.zone.now)
   end
 
+  # Mark a task as undone
+  def task_undone
+    self.update(:is_done => false, :done_date => nil)
+  end
+
   def slack_color
     if self.is_done
       return "good"
@@ -111,18 +115,13 @@ class SlackTask < ActiveRecord::Base
   # Return the task in the json format
   def to_slack_json
     json = {
-        title: "Task #{self.channel_order}",
-        text: self.task_description.to_s,
+        title: "Task #{self.channel_order} : #{self.task_description.to_s}",
+        text: "Created_at : #{self.created_at} by #{self.slack_user.name}",
         color: self.slack_color,
         fields: [
          {
-             title: "Creator",
-             value: self.slack_user.name,
-             short: true
-         },
-         {
-             title: "Creation Date",
-             value: self.created_at.to_s,
+             title: "Users Assigned",
+             value: self.slack_user_assigned.pluck(:name).join(' '),
              short: true
          },
          {
