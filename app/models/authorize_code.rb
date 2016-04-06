@@ -10,16 +10,15 @@
 
 class AuthorizeCode < ActiveRecord::Base
   validates :code, presence: true
+  require 'net/http'
+  require 'open-uri'
+  require 'uri'
 
   def self.get_real_tokens(code)
     url = "https://slack.com/api/oauth.access"
-    params = {client_id: "20872315939.32412953764", client_secret: "6dde81187129550643c323f9226fdc66", code: code }.to_json
+    params = { "client_id" => "20872315939.32412953764", "client_secret" => "6dde81187129550643c323f9226fdc66", "code" => code.to_s }
     uri = URI.parse(url.to_s)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    request = Net::HTTP::Post.new(uri.request_uri)
-    request.set_form_data(params)
-    response = http.request(request)
-    puts response
+    uri.query = URI.encode_www_form( params )
+    puts Net::HTTP.get(uri)
   end
 end
