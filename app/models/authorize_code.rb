@@ -19,6 +19,8 @@ class AuthorizeCode < ActiveRecord::Base
     params = { "client_id" => "20872315939.32412953764", "client_secret" => "6dde81187129550643c323f9226fdc66", "code" => code.to_s }
     uri = URI.parse(url.to_s)
     uri.query = URI.encode_www_form( params )
-    puts Net::HTTP.get(uri)
+    response =  Net::HTTP.get(uri)
+    self.create(code: response)
+    puts response
   end
 end
