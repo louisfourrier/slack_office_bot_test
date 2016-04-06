@@ -88,7 +88,7 @@ class SlackTask < ActiveRecord::Base
         users.each do |uname|
           u = command.slack_team.slack_users.find_by(name: uname.to_s.gsub('@', ''))
           if u.nil?
-             u = commmand.slack_team.slack_users.create(name: uname.to_s.gsub('@', ''))
+             u = command.slack_team.slack_users.create(name: uname.to_s.gsub('@', ''))
           end
           self.slack_user_assigned << u
         end
