@@ -31,7 +31,7 @@ class SlackUser < ActiveRecord::Base
   validates :name,  presence: true
   validates :name, uniqueness: true
   validates :name, :uniqueness => {:scope => :slack_team_id}
-  validates :slack_user_id, :uniqueness: true, :allow_blank => true
+  validates :slack_user_id, uniqueness: true, :allow_blank => true
 
 
 end
