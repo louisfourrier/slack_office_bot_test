@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @authorize_code.code %>
+</p>
+
+<%= link_to 'Edit', edit_authorize_code_path(@authorize_code) %> |
+<%= link_to 'Back', authorize_codes_path %>

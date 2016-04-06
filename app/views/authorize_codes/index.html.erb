@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Authorize Codes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @authorize_codes.each do |authorize_code| %>
+      <tr>
+        <td><%= authorize_code.code %></td>
+        <td><%= link_to 'Show', authorize_code %></td>
+        <td><%= link_to 'Edit', edit_authorize_code_path(authorize_code) %></td>
+        <td><%= link_to 'Destroy', authorize_code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Authorize code', new_authorize_code_path %>

@@ -51,7 +51,7 @@ gem 'exception_notification'
 ## PARSING EXTERNAL WEBSITE
 gem 'nokogiri'
 gem 'typhoeus'
-
+gem 'slack-ruby-client'
 
 
 

@@ -5,6 +5,11 @@ class SlackCommunication
 
   URL_AFFREUX = "https://hooks.slack.com/services/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"
 
+  def self.test_web_api
+    client = Slack::Web::Client.new
+    client.auth_test
+    client.chat_postMessage(channel: '#general', text: 'Hello World from WEB API', as_user: true)
+  end
 
   def self.send_webhook(url, payload)
     uri = URI.parse(url.to_s)

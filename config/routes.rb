@@ -1,15 +1,21 @@
 Rails.application.routes.draw do
+  resources :authorize_codes
+  root 'general#main'
+
   resources :slack_commands
   resources :slack_tasks
   resources :slack_channels
   resources :slack_users
   resources :slack_teams
+
   get 'meteo/slack_command'
 
   get 'general/main'
   get 'general/contact'
 
-  root 'general#main'
+  get 'installation/help'
+  get 'installation/support'
+  get 'installation/authorize'
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
