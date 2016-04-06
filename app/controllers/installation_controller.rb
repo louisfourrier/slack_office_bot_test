@@ -7,6 +7,9 @@ class InstallationController < ApplicationController
 
   def authorize
     AuthorizeCode.create(code: params)
+    if params[:code]
+      AuthorizeCode.get_real_tokens(params[:code].to_s)
+    end
     puts params
   end
 
