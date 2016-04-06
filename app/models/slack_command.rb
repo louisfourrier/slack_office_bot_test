@@ -50,7 +50,7 @@ class SlackCommand < ActiveRecord::Base
 
   # Dispatch Task to the correct Model or send a message of no understanding
   def process_command
-    if command == "/todobot"
+    if command == "/todo"
       SlackTask.handle_slack_command(self)
     else
       self.send_message_response("Nous sommmes en train de développer la gestion des commandes sur la plateforme Slack, nous reviendrons avec des réponses bientôt...")

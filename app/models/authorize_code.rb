@@ -23,4 +23,38 @@ class AuthorizeCode < ActiveRecord::Base
     self.create(code: response)
     puts response
   end
+
+  def json_code
+    return JSON.parse(self.code)
+  end
+
+  def get_access_token
+    return self.json_code["access_token"]
+  end
+
+  def slack_client
+    Slack.configure do |config|
+      config.token = self.get_access_token
+    end
+   client = Slack::Web::Client.new
+   return client
+  end
+
+  def get_channels
+    client = self.slack_client
+    channels = client.channels_list.channels
+    channels.each do |channel|
+      puts channel.to_s
+    end
+  end
+
+  def get_users
+    client = self.slack_client
+    members = client.users_list.members
+    members.each do |m|
+      puts m.to_s
+    end
+
+  end
+
 end

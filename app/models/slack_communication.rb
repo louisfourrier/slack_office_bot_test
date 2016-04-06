@@ -6,6 +6,9 @@ class SlackCommunication
   URL_AFFREUX = "https://hooks.slack.com/services/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"
 
   def self.test_web_api
+    Slack.configure do |config|
+      config.token = "xoxp-20872315939-20874428675-32402752086-deba88b18b"
+    end
     client = Slack::Web::Client.new
     client.auth_test
     client.chat_postMessage(channel: '#general', text: 'Hello World from WEB API', as_user: true)
